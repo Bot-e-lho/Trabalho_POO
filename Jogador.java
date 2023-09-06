@@ -1,134 +1,84 @@
 package Wumpus;
 
+import javax.swing.*;
+import java.util.ArrayList;
+import java.util.List;
+
 public class Jogador extends Elemento {
     private int energiaVital;
     private int flechas;
     private int bateria;
-    private boolean temBateria;
+    private List<String> objetosCarregados;
+    private JLabel energiaLabel;
+    private JLabel flechasLabel;
+    private JLabel bateriaLabel;
 
-    public Jogador(Posicao posicao) {
+    public Jogador(Posicao posicao, JPanel interfacePanel) {
         super(posicao);
         this.energiaVital = 100;
         this.flechas = 1;
-        this.bateria = 0;
-        this.temBateria = true;
+        this.bateria = 3;
+        this.objetosCarregados = new ArrayList<>();
+
+        energiaLabel = new JLabel("Energia: " + energiaVital);
+        flechasLabel = new JLabel("Flechas: " + flechas);
+        bateriaLabel = new JLabel("Bateria: " + bateria);
+
+        interfacePanel.add(energiaLabel);
+        interfacePanel.add(flechasLabel);
+        interfacePanel.add(bateriaLabel);
     }
-    
-    public void coletarOuro() {
-        if (podeColetarOuro()) {
-        } else {
+
+    public void coletarObjeto(String objeto) {
+        if (objetosCarregados.size() < 3) {
+            objetosCarregados.add(objeto);
         }
     }
 
-    private boolean podeColetarOuro() {
-        return true; 
+    public void descartarObjeto(String objeto) {
+        if (objetosCarregados.contains(objeto)) {
+            objetosCarregados.remove(objeto);
+        }
     }
 
-    public int getEnergiaVital() {
-        return energiaVital;
+    public void coletarOuro() {
     }
 
-    public void setEnergiaVital(int energiaVital) {
-        this.energiaVital = energiaVital;
-    }
+    public void diminuirEnergiaVital(int quantidade) {
+        energiaVital -= quantidade;
+        energiaLabel.setText("Energia: " + energiaVital);
 
-    public int getFlechas() {
-        return flechas;
-    }
-
-    public void setFlechas(int flechas) {
-        this.flechas = flechas;
-    }
-
-    public boolean temBateria() {
-        return temBateria;
-    }
-    
-    public void setBateria(int bateria) {
-        this.bateria = bateria;
-    }
-    public int getBateria() {
-        return bateria;
-    }
-    
-    
-    public void setLanterna(boolean temBateria) {
-        this.temBateria = temBateria;
-    }
-
-    public void moverPara(Posicao novaPosicao) {
-        setPosicao(novaPosicao);
+        if (energiaVital <= 0) {
+        }
     }
 
     public void usarFlecha() {
         flechas--;
+        flechasLabel.setText("Flechas: " + flechas);
     }
 
     public void usarLanterna() {
-        temBateria = false;
+        bateria--;
+        bateriaLabel.setText("Bateria: " + bateria);
     }
 
-    public void coletarLanterna() {
-        temBateria = true;
+    public void coletarBateria() {
+        bateria++;
+        bateriaLabel.setText("Bateria: " + bateria);
     }
 
     public void coletarFlecha() {
         flechas++;
-    }
-
-    @Override
-    public void interagir(Elemento outroElemento) {
-    }
-
-    private void diminuirEnergiaVital(int i) {
-        
-    }
-    
-    public class Wumpus extends Elemento {
-    public Wumpus(Posicao posicao) {
-        super(posicao);
+        flechasLabel.setText("Flechas: " + flechas);
     }
 
     @Override
     public void interagir(Elemento elem) {
-    }
-}
-
-
-public class Monstro2 extends Elemento {
-    public Monstro2(Posicao posicao) {
-        super(posicao);
-    }
-
-    @Override
-    public void interagir(Elemento elem) {
-        if (elem instanceof Jogador jogador) {
-            jogador.diminuirEnergiaVital(25); 
+        if (elem instanceof Wumpus) {
+            diminuirEnergiaVital(25);
+        } else if (elem instanceof Mysterio) {
+            diminuirEnergiaVital(10);
         }
     }
 }
 
-
-public class Ouro extends Elemento {
-    public Ouro(Posicao posicao) {
-        super(posicao);
-    }
-
-    @Override
-    public void interagir(Elemento elem) {
-        if( elem instanceof Jogador ){
-            Jogador jogador = (Jogador) elem;
-        }
-    }
-    }
-
-public class Madeira extends Elemento {
-    public Madeira(Posicao posicao) {
-        super(posicao);
-    }
-
-    @Override
-    public void interagir(Elemento elem) {
-    }
-}
-}
