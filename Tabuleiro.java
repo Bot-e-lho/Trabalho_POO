@@ -42,7 +42,6 @@ public final class Tabuleiro extends JFrame {
 botoesFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 botoesFrame.setSize(300, 150);
 
-// Crie botões vazios para ocupar as posições 1x2, 2x1, 2x3 e 3x2.
 JButton botaoVazio1 = new JButton("");
 JButton botaoVazio2 = new JButton("");
 JButton coletar = new JButton("Coletar");
