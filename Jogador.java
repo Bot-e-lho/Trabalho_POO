@@ -79,6 +79,7 @@ public class Jogador {
         energiaLabel.setText("Energia: " + energiaVital);
 
         if (energiaVital <= 0) {
+            abrirJanela("Você perdeu!");
         }
     }
 
@@ -119,19 +120,19 @@ public class Jogador {
     }
 
     public void moverParaCima() {
-    int x = pos.getX();
-    int y = pos.getY();
+        int x = pos.getX();
+        int y = pos.getY();
 
-    if (posicaoValida(x - 1, y)) {
-        pos = new Posicao(x - 1, y);
-        jogo.atualizarTabuleiro();
-        atualizarSensor();
-        ambiente.revelarPosicao(x - 1, y);
-        verificarConteudoPosicao(x - 1, y);
-    } else {
-        abrirJanela("O Agente esbarra em algo, uma parede o impede de prosseguir.");
+        if (posicaoValida(x - 1, y)) {
+            pos = new Posicao(x - 1, y);
+            jogo.atualizarTabuleiro();
+            atualizarSensor();
+            ambiente.revelarPosicao(x - 1, y);
+            verificarConteudoPosicao(x - 1, y);
+        } else {
+            abrirJanela("O Agente esbarra em algo, uma parede o impede de prosseguir.");
+        }
     }
-}
 
     public void moverParaBaixo() {
         int x = pos.getX();
@@ -192,16 +193,14 @@ public class Jogador {
     }
 
     public void coletarOuro() {
-    if (ambiente.getElemento(pos) == Ambiente.ouro && !ouroColetado) {
-        ouroColetado = true;
-        ambiente.setConteudoPosicao(pos.getX(), pos.getY(), Ambiente.vazio);
-        jogo.atualizarTabuleiro(); 
+        if (ambiente.getElemento(pos) == Ambiente.ouro && !ouroColetado) {
+            ouroColetado = true;
+            ambiente.setConteudoPosicao(pos.getX(), pos.getY(), Ambiente.vazio);
+            jogo.atualizarTabuleiro(); 
+        }
     }
-}
-
-    
+ 
     public void atualizarSensor() {
-
         int elementoAtual = ambiente.getElemento(pos);
 
         if (elementoAtual == Ambiente.brisa) {
@@ -240,18 +239,16 @@ public class Jogador {
     }
     
     private void verificarConteudoPosicao(int x, int y) {
-    int conteudo = ambiente.getConteudoPosicao(x, y);
+        int conteudo = ambiente.getConteudoPosicao(x, y);
 
-    switch (conteudo) {
-        case Ambiente.malCheiro -> abrirJanela("O Agente sente um cheiro ruim.");
-        case Ambiente.brisa -> abrirJanela("O Agente sente uma brisa.");
-        case Ambiente.monstro2 -> abrirJanela("O Agente encontrou um monstro");
-        case Ambiente.wumpus -> abrirJanela("O Agente encontrou o Wumpus");
-        case Ambiente.ouro -> abrirJanela("O Agente encontrou ouro!");
-        default -> {
+        switch (conteudo) {
+            case Ambiente.malCheiro -> abrirJanela("O Agente sente um cheiro ruim.");
+            case Ambiente.brisa -> abrirJanela("O Agente sente uma brisa.");
+            case Ambiente.monstro2 -> abrirJanela("O Agente encontrou um monstro");
+            case Ambiente.wumpus -> abrirJanela("O Agente encontrou o Wumpus");
+            case Ambiente.ouro -> abrirJanela("O Agente encontrou ouro!");
+            default -> {
             }
-    }
         }
-
-   
+    }
 }

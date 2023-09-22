@@ -37,9 +37,8 @@ public class Sensor {
     }
 
     public boolean isBrilho(Posicao posicao) {
-    int elemento = ambiente.getElemento(posicao);
-    
-    return elemento == Ambiente.brilho;
+        int elemento = ambiente.getElemento(posicao);
+        return elemento == Ambiente.brilho;
     }
 
 
@@ -66,8 +65,7 @@ public class Sensor {
     }
     
     public boolean isElementoOculto(Posicao posicao) {
-    int elemento = ambiente.getElemento(posicao);
-
-    return elemento == Ambiente.vazio;
-}
+        int elemento = ambiente.getElemento(posicao);
+        return elemento == Ambiente.vazio;
+    }
 }

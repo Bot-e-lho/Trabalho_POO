@@ -39,16 +39,16 @@ public final class Ambiente {
     }
 
     public void inicializarAmbiente(Posicao posicaoInicialJogador) {
-    Random random = new Random();
+        Random random = new Random();
 
-    for (int i = 0; i < tamanho; i++) {
+        for (int i = 0; i < tamanho; i++) {
             for (int j = 0; j < tamanho; j++) {
                 matrizAmbiente[i][j] = oculto;
                 posicoesReveladas[i][j] = false;
                 conteudoPosicoes[i][j] = vazio;
             }
         }
-    int ouroX, ouroY;
+        int ouroX, ouroY;
         do {
             ouroX = random.nextInt(tamanho);
             ouroY = random.nextInt(tamanho);
@@ -66,7 +66,7 @@ public final class Ambiente {
                 switch (matrizAmbiente[x][y]) {
                     case Ambiente.ouro -> {
                         player.coletarOuro(); 
-        }
+                    }
                     case wumpus -> {
                     }
                     case madeira -> {
