@@ -17,14 +17,13 @@ public class Main {
 
                 JPanel tabuleiroPanel = new JPanel(new GridLayout(15, 15));
 
-                JogoWumpus jogo = new JogoWumpus(botoesTabuleiro);
+                JogoWumpus jogo = new JogoWumpus(botoesTabuleiro); 
                 Jogador jogador = new Jogador(new Posicao(14, 0), tabuleiroPanel, ambiente, jogo);
                 Sensor sensorDoJogador = jogador.getSensor();
 
                 ambiente.inicializarAmbiente(jogador.getPosicao());
 
                 Tabuleiro tabuleiro = new Tabuleiro(ambiente, jogador, jogo);
-                new JogoWumpus(botoesTabuleiro);
             }
         });
     }
