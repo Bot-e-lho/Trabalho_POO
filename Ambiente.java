@@ -86,15 +86,9 @@ public final class Ambiente {
                     default -> {
                     }
                 }
-                }
-            } else {
             }
         }
-    
-
-
-
-
+    }
 
     public int getElemento(Posicao posicao) {
         int x = posicao.getX();
@@ -108,20 +102,20 @@ public final class Ambiente {
     }
     
     private void posicionarElementoMalCheiro(int wumpusX, int wumpusY) {
-    int[] dx = {-1, 1, 0, 0};
-    int[] dy = {0, 0, -1, 1};
+        int[] dx = {-1, 1, 0, 0};
+        int[] dy = {0, 0, -1, 1};
 
-    for (int i = 0; i < 4; i++) {
-        int newX = wumpusX + dx[i];
-        int newY = wumpusY + dy[i];
+        for (int i = 0; i < 4; i++) {
+            int newX = wumpusX + dx[i];
+            int newY = wumpusY + dy[i];
 
-        if (newX >= 0 && newX < tamanho && newY >= 0 && newY < tamanho) {
-            if (!posicoesReveladas[newX][newY]) {
-                matrizAmbiente[newX][newY] = malCheiro;
+            if (newX >= 0 && newX < tamanho && newY >= 0 && newY < tamanho) {
+                if (!posicoesReveladas[newX][newY]) {
+                    matrizAmbiente[newX][newY] = malCheiro;
+                }
             }
         }
     }
-}
     
     public boolean foiRevelada(int x, int y) {
         if (x >= 0 && x < tamanho && y >= 0 && y < tamanho) {

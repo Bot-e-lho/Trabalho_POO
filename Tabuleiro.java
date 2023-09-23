@@ -105,25 +105,27 @@ public final class Tabuleiro extends JFrame {
         });
         
         coletar.addActionListener(e -> {
-    int posXJogador = jogador.getPosicao().getX();
-    int posYJogador = jogador.getPosicao().getY();
+            int posXJogador = jogador.getPosicao().getX();
+            int posYJogador = jogador.getPosicao().getY();
     
-    int elemento = ambiente.getElemento(new Posicao(posXJogador, posYJogador));
-    
-    switch (elemento) {
-        case Ambiente.ouro -> {
-            jogador.coletarOuro();
-            ambiente.setConteudoPosicao(posXJogador, posYJogador, Ambiente.vazio);
+            if (posXJogador >= 0 && posXJogador < tamanhoTabuleiro && posYJogador >= 0 && posYJogador < tamanhoTabuleiro) {
+                int elemento = ambiente.getElemento(jogador.getPosicao());
+                switch (elemento) {
+                    case Ambiente.ouro -> {
+                        ambiente.setConteudoPosicao(posXJogador, posYJogador, Ambiente.vazio);
+                    }
+                    case Ambiente.madeira -> {
+                        ambiente.setConteudoPosicao(posXJogador, posYJogador, Ambiente.vazio);
+                    }
+                    case Ambiente.poco -> {
+                        jogador.diminuirEnergiaVital(100);
+                    }
+                    default -> {
+                    }
                 }
-        case Ambiente.madeira -> {
-            jogador.pegarMadeira();
-            ambiente.setConteudoPosicao(posXJogador, posYJogador, Ambiente.vazio);
-                }
-        default -> abrirJanela("Nada para coletar aqui!");
-    }
-    
-    atualizarTabuleiro();
-});
+                atualizarTabuleiro();
+            }
+        });
 
 
         botoesFrame.add(botoesPanel, BorderLayout.CENTER);
