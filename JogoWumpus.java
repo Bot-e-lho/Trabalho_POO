@@ -31,7 +31,7 @@ public final class JogoWumpus extends JFrame implements ActionListener {
         tabuleiroPanel.setLayout(new GridLayout(15, 15));
         
         player = new JPanel();
-        player.setLayout(new GridLayout(1, 3));
+        player.setLayout(new GridLayout(1, 4));
         
         int x = num.nextInt(16);
         int y = num.nextInt(16);
@@ -43,7 +43,7 @@ public final class JogoWumpus extends JFrame implements ActionListener {
         
 
         JPanel painel = new JPanel();
-        painel.setLayout(new GridLayout(4, 0));
+        painel.setLayout(new GridLayout(4, 1));
 
         jogarButton = new JButton("Jogar");
         debugButton = new JButton("Debug");
@@ -123,6 +123,7 @@ public final class JogoWumpus extends JFrame implements ActionListener {
             gameTimer.start();
 
             Tabuleiro tabuleiro = new Tabuleiro(ambiente, jogador, this);
+//            tabuleiro.addControle(player);
             tabuleiroFrame.setVisible(true);
         }
     }
@@ -148,6 +149,8 @@ public final class JogoWumpus extends JFrame implements ActionListener {
         atualizarTabuleiro();
         tabuleiroFrame.setLocationRelativeTo(null);
         jogoEmAndamento = true;
+        
+        
 
         Tabuleiro tabuleiro = new Tabuleiro(ambiente, jogador, this);
         tabuleiroFrame.setVisible(true);
@@ -164,10 +167,10 @@ public final class JogoWumpus extends JFrame implements ActionListener {
                         Color cor = Color.WHITE; 
 
                         switch (conteudo) {
-                            case Ambiente.malCheiro -> cor = Color.RED;
-                            case Ambiente.brisa -> cor = Color.BLUE;
-                            case Ambiente.monstro2 -> cor = Color.BLACK;
-                            case Ambiente.ouro -> cor = Color.YELLOW;
+                            case Ambiente.malCheiro -> botoesTabuleiro[i][j].setText("F");
+                            case Ambiente.brisa -> botoesTabuleiro[i][j].setText("B");
+                            case Ambiente.monstro2 -> botoesTabuleiro[i][j].setText("F");
+                            case Ambiente.ouro -> botoesTabuleiro[i][j].setText("G");
                             default -> {
                             }
                         }
@@ -182,7 +185,7 @@ public final class JogoWumpus extends JFrame implements ActionListener {
 
         if (botoesTabuleiro[xJogador][yJogador] != null) {
             botoesTabuleiro[xJogador][yJogador].setText("007");
-        }   
+        }
     }
     
     private void encerrarJogo() {

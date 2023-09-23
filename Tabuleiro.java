@@ -10,6 +10,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JLabel;
 
 public final class Tabuleiro extends JFrame {
     private JButton[][] botoesTabuleiro;
@@ -17,6 +18,8 @@ public final class Tabuleiro extends JFrame {
     private final Ambiente ambiente;
     private final Jogador jogador;
     private JogoWumpus jogo;
+    private JFrame botoesFrame;
+    private JPanel botoesPanel;
 
     public Tabuleiro(Ambiente ambiente, Jogador jogador, JogoWumpus jogo) {
         this.ambiente = ambiente;
@@ -38,7 +41,7 @@ public final class Tabuleiro extends JFrame {
             }
         }
 
-        JFrame botoesFrame = new JFrame("Controle");
+        botoesFrame = new JFrame("Controle");
         botoesFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         botoesFrame.setSize(300, 150);
 
@@ -52,9 +55,25 @@ public final class Tabuleiro extends JFrame {
         JButton moverBaixoButton = new JButton("Baixo");
         JButton moverEsquerdaButton = new JButton("Esquerda");
         JButton moverDireitaButton = new JButton("Direita");
+        
+        Jogador info = new Jogador();
+        
+        int energia = info.getEnergiaVital();
+        int flechas = info.getFlechas();
+        int bateria = info.getBateria();
+        boolean ouro = info.getOuro();
+        String pegouOuro = ouro ? "Sim" : "Vazio";
+        
+        JLabel energiaLabel = new JLabel("Energia: " + energia);
+        JLabel flechasLabel = new JLabel("Flechas: " + flechas);
+        JLabel bateriaLabel = new JLabel("Bateria: " + bateria);
+        JLabel ouroLabel = new JLabel("Ouro: " + pegouOuro);
+        JLabel blank = new JLabel("");
 
-        JPanel botoesPanel = new JPanel();
-        botoesPanel.setLayout(new GridLayout(3, 3));
+               
+        botoesPanel = new JPanel();
+        botoesPanel.setLayout(new GridLayout(4, 3));
+        
 
         botoesPanel.add(botaoVazio1);
         botoesPanel.add(moverCimaButton);
@@ -65,6 +84,13 @@ public final class Tabuleiro extends JFrame {
         botoesPanel.add(botaoVazio4);
         botoesPanel.add(moverBaixoButton);
         botoesPanel.add(botaoVazio5);
+//        botoesPanel.add(blank);
+        botoesPanel.add(energiaLabel);
+        botoesPanel.add(flechasLabel);
+        botoesPanel.add(bateriaLabel);
+//        botoesPanel.add(ouroLabel);
+        
+        
 
         botoesFrame.add(botoesPanel);
         botoesFrame.setVisible(true);
@@ -105,32 +131,27 @@ public final class Tabuleiro extends JFrame {
         });
         
         coletar.addActionListener(e -> {
-    int posXJogador = jogador.getPosicao().getX();
-    int posYJogador = jogador.getPosicao().getY();
-
-    if (posXJogador >= 0 && posXJogador < tamanhoTabuleiro && posYJogador >= 0 && posYJogador < tamanhoTabuleiro) {
-        int elemento = ambiente.getElemento(jogador.getPosicao());
-        switch (elemento) {
-            case Ambiente.ouro -> {
-                ambiente.setConteudoPosicao(posXJogador, posYJogador, Ambiente.vazio);
+            int posXJogador = jogador.getPosicao().getX();
+            int posYJogador = jogador.getPosicao().getY();
+    
+            if (posXJogador >= 0 && posXJogador < tamanhoTabuleiro && posYJogador >= 0 && posYJogador < tamanhoTabuleiro) {
+                int elemento = ambiente.getElemento(jogador.getPosicao());
+                switch (elemento) {
+                    case Ambiente.ouro -> {
+                        ambiente.setConteudoPosicao(posXJogador, posYJogador, Ambiente.vazio);
+                    }
+                    case Ambiente.madeira -> {
+                        ambiente.setConteudoPosicao(posXJogador, posYJogador, Ambiente.vazio);
+                    }
+                    case Ambiente.poco -> {
+                        jogador.diminuirEnergiaVital(100);
+                    }
+                    default -> {
+                    }
+                }
                 atualizarTabuleiro();
             }
-            case Ambiente.madeira -> {
-                ambiente.setConteudoPosicao(posXJogador, posYJogador, Ambiente.vazio);
-                atualizarTabuleiro();
-            }
-            case Ambiente.poco -> {
-                jogador.diminuirEnergiaVital(100);
-                atualizarTabuleiro();
-            }
-            default -> {
-                abrirJanela("Nada para coletar!"); 
-            }
-        }
-    } else {
-        abrirJanela("Nada para coletar!");
-    }
-});
+        });
 
 
         botoesFrame.add(botoesPanel, BorderLayout.CENTER);
@@ -206,6 +227,11 @@ public final class Tabuleiro extends JFrame {
             }
         }
     }
+    
+    public void addControle(JPanel paly) {
+        botoesPanel.add(paly);;
+    }
+    
     private void abrirJanela(String mensagem) {
         JOptionPane.showMessageDialog(this, mensagem, "Aviso", JOptionPane.INFORMATION_MESSAGE);
     }  

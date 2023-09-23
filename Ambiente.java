@@ -31,7 +31,6 @@ public final class Ambiente {
         this.conteudoPosicoes = new int[tamanho][tamanho];
         this.ouroPresente = false;
         this.player = player;
-
     }
     
     public void setPosicaoInicialJogador(Posicao posicao) {
@@ -39,7 +38,7 @@ public final class Ambiente {
     }
 
     public void inicializarAmbiente(Posicao posicaoInicialJogador) {
-        Random random = new Random();
+       
 
         for (int i = 0; i < tamanho; i++) {
             for (int j = 0; j < tamanho; j++) {
@@ -48,14 +47,6 @@ public final class Ambiente {
                 conteudoPosicoes[i][j] = vazio;
             }
         }
-        int ouroX, ouroY;
-        do {
-            ouroX = random.nextInt(tamanho);
-            ouroY = random.nextInt(tamanho);
-        } while (posicaoInicialJogador.getX() == ouroX && posicaoInicialJogador.getY() == ouroY);
-
-        matrizAmbiente[ouroX][ouroY] = ouro;
-        ouroPresente = true;
     }
 
     public void moverJogador(int x, int y) {

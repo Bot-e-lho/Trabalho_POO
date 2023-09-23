@@ -19,7 +19,7 @@ public class Main {
             Jogador jogador = new Jogador(new Posicao(14, 0), tabuleiroPanel, ambiente, jogo);
             Sensor sensorDoJogador = jogador.getSensor();
             
-            ambiente.inicializarAmbiente(jogador.getPosicao());
+            ambiente.inicializarAmbiente(jogador.getPosicao());            
         });
     }
 }

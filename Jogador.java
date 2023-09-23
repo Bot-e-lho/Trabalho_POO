@@ -46,6 +46,13 @@ public class Jogador {
         interfacePanel.add(bateriaLabel);
         interfacePanel.add(ouroLabel);
     }
+    
+    public Jogador() {
+        this.energiaVital = 100;
+        this.flechas = 1;
+        this.bateria = 2;
+        this.ouroColetado = false;
+    }
 
     public void coletarObjeto(String objeto) {
         if (objetosCarregados.size() < 3) {
@@ -115,6 +122,10 @@ public class Jogador {
 
     public int getEnergiaVital() {
         return energiaVital;
+    }
+    
+    public boolean getOuro() {
+        return ouroColetado;
     }
 
     public int getBateria() {
