@@ -21,23 +21,25 @@ public class Jogador {
     private Ambiente ambiente;
     private JogoWumpus jogo;
     private Sensor sensor;
+    private boolean vivo;
     
-
     public Jogador(Posicao posicao, JPanel interfacePanel, Ambiente ambiente, JogoWumpus jogo) {
         this.ouroColetado = false;
         this.pos = posicao;
         this.energiaVital = 100;
         this.flechas = 1;
-        this.bateria = 3;
+        this.bateria = 2;
         this.objetosCarregados = new ArrayList<>();
         this.ambiente = ambiente;
         this.jogo = jogo;
         this.sensor = new Sensor(ambiente);
+        this.vivo = true;
 
         energiaLabel = new JLabel("Energia: " + energiaVital);
         flechasLabel = new JLabel("Flechas: " + flechas);
         bateriaLabel = new JLabel("Bateria: " + bateria);
-        ouroLabel = new JLabel("Ouro Coletado");
+        String pegouOuro = ouroColetado ? "RUN!" : "Vazio"; 
+        ouroLabel = new JLabel("Ouro Coletado: " + pegouOuro);
 
         interfacePanel.add(energiaLabel);
         interfacePanel.add(flechasLabel);
