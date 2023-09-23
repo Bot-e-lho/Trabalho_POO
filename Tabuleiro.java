@@ -105,27 +105,32 @@ public final class Tabuleiro extends JFrame {
         });
         
         coletar.addActionListener(e -> {
-            int posXJogador = jogador.getPosicao().getX();
-            int posYJogador = jogador.getPosicao().getY();
-    
-            if (posXJogador >= 0 && posXJogador < tamanhoTabuleiro && posYJogador >= 0 && posYJogador < tamanhoTabuleiro) {
-                int elemento = ambiente.getElemento(jogador.getPosicao());
-                switch (elemento) {
-                    case Ambiente.ouro -> {
-                        ambiente.setConteudoPosicao(posXJogador, posYJogador, Ambiente.vazio);
-                    }
-                    case Ambiente.madeira -> {
-                        ambiente.setConteudoPosicao(posXJogador, posYJogador, Ambiente.vazio);
-                    }
-                    case Ambiente.poco -> {
-                        jogador.diminuirEnergiaVital(100);
-                    }
-                    default -> {
-                    }
-                }
+    int posXJogador = jogador.getPosicao().getX();
+    int posYJogador = jogador.getPosicao().getY();
+
+    if (posXJogador >= 0 && posXJogador < tamanhoTabuleiro && posYJogador >= 0 && posYJogador < tamanhoTabuleiro) {
+        int elemento = ambiente.getElemento(jogador.getPosicao());
+        switch (elemento) {
+            case Ambiente.ouro -> {
+                ambiente.setConteudoPosicao(posXJogador, posYJogador, Ambiente.vazio);
                 atualizarTabuleiro();
             }
-        });
+            case Ambiente.madeira -> {
+                ambiente.setConteudoPosicao(posXJogador, posYJogador, Ambiente.vazio);
+                atualizarTabuleiro();
+            }
+            case Ambiente.poco -> {
+                jogador.diminuirEnergiaVital(100);
+                atualizarTabuleiro();
+            }
+            default -> {
+                abrirJanela("Nada para coletar!"); 
+            }
+        }
+    } else {
+        abrirJanela("Nada para coletar!");
+    }
+});
 
 
         botoesFrame.add(botoesPanel, BorderLayout.CENTER);
