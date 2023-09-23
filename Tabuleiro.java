@@ -135,7 +135,7 @@ public final class Tabuleiro extends JFrame {
         int posYJogador = jogador.getPosicao().getY();
 
         if (posXJogador >= 0 && posXJogador < tamanhoTabuleiro && posYJogador >= 0 && posYJogador < tamanhoTabuleiro) {
-            String elemento = ambiente.getElemento(jogador.getPosicao());
+            int elemento = ambiente.getElemento(jogador.getPosicao());
             switch (elemento) {
                 case Ambiente.ouro -> {
                     ambiente.setConteudoPosicao(posXJogador, posYJogador, Ambiente.vazio);
